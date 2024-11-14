@@ -8,6 +8,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 public class GameRecordEntity {
@@ -70,5 +71,34 @@ public class GameRecordEntity {
 
     public Instant getCreatedAt() {
         return createdAt;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameRecordEntity that = (GameRecordEntity) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(user, that.user) &&
+                Objects.equals(gameMode, that.gameMode) &&
+                Objects.equals(winner, that.winner) &&
+                Objects.equals(createdAt, that.createdAt);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, user, gameMode, winner, createdAt);
+    }
+
+    @Override
+    public String toString() {
+        return "GameRecordEntity{" +
+                "id=" + id +
+                ", user=" + user +
+                ", gameMode='" + gameMode + '\'' +
+                ", winner='" + winner + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
     }
 }
