@@ -4,7 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
+
 import java.time.Instant;
 
 @Entity
@@ -14,7 +16,8 @@ public class GameRecordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long userId;
+    @ManyToOne
+    private UserEntity user;
     private String gameMode; // "human_vs_AI" or "AI_vs_AI"
     private String winner; // "human" or "AI" (need to specify AI's name)
 
@@ -22,8 +25,8 @@ public class GameRecordEntity {
 
     public GameRecordEntity() {}
 
-    public GameRecordEntity(Long userId, String gameMode, String winner) {
-        this.userId = userId;
+    public GameRecordEntity(UserEntity user, String gameMode, String winner) {
+        this.user = user;
         this.gameMode = gameMode;
         this.winner = winner;
     }
@@ -39,6 +42,14 @@ public class GameRecordEntity {
 
     public Long getId() {
         return id;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 
     public String getGameMode() {
@@ -57,11 +68,7 @@ public class GameRecordEntity {
         this.winner = winner;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUser(Long userId) {
-        this.userId = userId;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 }
