@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 
 const BOARD_SIZE = 15; // Size of the chessboard (15x15)
 
-function ChessBoard() {
+function ChessBoard({ ingame }) {
   const [board, setBoard] = useState(
     Array(BOARD_SIZE)
       .fill(null)
@@ -13,18 +13,24 @@ function ChessBoard() {
 
   const handleCellClick = (row, col) => {
     // Ignore clicks on already filled squares
-    if (board[row][col] !== null) return;
+    if (ingame) {
+      if (board[row][col] !== null) return;
 
-    // Update the board with the current player's stone
-    const updatedBoard = board.map((r, rowIndex) =>
-      r.map((cell, colIndex) =>
-        rowIndex === row && colIndex === col ? (isBlackTurn ? "B" : "W") : cell
-      )
-    );
-    setBoard(updatedBoard);
+      // Update the board with the current player's stone
+      const updatedBoard = board.map((r, rowIndex) =>
+        r.map((cell, colIndex) =>
+          rowIndex === row && colIndex === col
+            ? isBlackTurn
+              ? "B"
+              : "W"
+            : cell
+        )
+      );
+      setBoard(updatedBoard);
 
-    // Toggle player's turn
-    setIsBlackTurn(!isBlackTurn);
+      // Toggle player's turn
+      setIsBlackTurn(!isBlackTurn);
+    }
   };
 
   return (
