@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Box, Button, Typography, Menu, MenuItem } from "@mui/material";
 import ChessBoard from "../components/ChessBoard"; // Replace with your actual ChessBoard component
+import ButtonMenu from "../components/ButtonMenu";
 
 function ChessPage(props) {
   const { handleBack, humanState, aiState } = props;
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedModel, setSelectedModel] = useState("");
+  const [ingame, setIngame] = useState(false);
+  const [playerIsBlack, SetplayerIsBlack] = useState(true);
 
   // Handlers for the AI Model dropup menu
   const handleOpenMenu = (event) => {
@@ -21,8 +24,18 @@ function ChessPage(props) {
     setAnchorEl(null);
   };
 
+  const handleIngame = (model) => {
+    if (selectedModel != "") {
+      setIngame(true);
+    }
+  };
+
+  const handleChangeColor = (model) => {
+    SetplayerIsBlack(!playerIsBlack);
+  };
+
   return (
-    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ height: "90vh", display: "flex", flexDirection: "column" }}>
       {/* Chess Board Area */}
       <Box
         sx={{
@@ -34,10 +47,12 @@ function ChessPage(props) {
           padding: "16px",
         }}
       >
-        <ChessBoard /> {/* Replace with your custom ChessBoard component */}
+        <ChessBoard ingame={ingame} />
+        {/* Replace with your custom ChessBoard component */}
       </Box>
+      {/* end of Chess Board Area */}
 
-      {/* Player/AI Model Selection */}
+      {/* Player/AI Model Selection ---------------------------------------------------------------------------*/}
       <Box
         sx={{
           display: "flex",
@@ -49,17 +64,34 @@ function ChessPage(props) {
       >
         {/* Left side player information logic handled here */}
         {humanState && (
-          <Typography variant="body1" color="black">
+          <Button
+            variant="outlined"
+            sx={{
+              fontWeight: "bold",
+              flex: 1,
+              maxWidth: "300px",
+              backgroundColor: playerIsBlack ? "black" : "white",
+              color: playerIsBlack ? "white" : "black",
+            }}
+          >
             PlayerUserName.
-          </Typography>
+          </Button>
         )}
+
+        {/* ---------------------------------------------------------------------------*/}
 
         {aiState && (
           <>
             <Button
               variant="outlined"
               onClick={handleOpenMenu}
-              sx={{ flex: 1, maxWidth: "300px" }}
+              sx={{
+                fontWeight: "bold",
+                flex: 1,
+                maxWidth: "300px",
+                backgroundColor: playerIsBlack ? "black" : "white",
+                color: playerIsBlack ? "white" : "black",
+              }}
             >
               AI Model {selectedModel && `(${selectedModel})`}
             </Button>
@@ -92,7 +124,13 @@ function ChessPage(props) {
         <Button
           variant="outlined"
           onClick={handleOpenMenu}
-          sx={{ flex: 1, maxWidth: "300px" }}
+          sx={{
+            fontWeight: "bold",
+            flex: 1,
+            maxWidth: "300px",
+            backgroundColor: playerIsBlack ? "white" : "black",
+            color: playerIsBlack ? "black" : "white",
+          }}
         >
           AI Model {selectedModel && `(${selectedModel})`}
         </Button>
@@ -120,22 +158,19 @@ function ChessPage(props) {
           </MenuItem>
         </Menu>
       </Box>
+      {/* end of Player/AI Model Selection ---------------------------------------------------------------------------*/}
 
-      {/* Buttons: Start, Change Color, Back */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          padding: "16px",
-        }}
-      >
-        <Button variant="outlined">Start</Button>
-        <Button variant="outlined">Change Color</Button>
-        <Button variant="outlined" onClick={handleBack}>
-          Back
-        </Button>
-      </Box>
+      {/* in the future, this need to be replace depends on ingame or not*/}
+      <ButtonMenu
+        handleBack={handleBack}
+        handleIngame={handleIngame}
+        handleChangeColor={handleChangeColor}
+      />
+      {/* end of the buttonMenu*/}
+
+      {/*end of entire box*/}
     </Box>
+    //end of largest box
   );
 }
 

@@ -81,6 +81,7 @@ function MainMenu(props) {
             History
           </Button>
         </Box>
+        {/* end of Top Buttons */}
 
         {/* Bottom Logout Button */}
         <Button
@@ -101,6 +102,7 @@ function MainMenu(props) {
           Logout
         </Button>
       </Box>
+      {/*end of the side bar*/}
 
       {/* Main Content Area */}
       <Box
