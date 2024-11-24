@@ -3,18 +3,22 @@ import { AppBar, Toolbar, Typography } from "@mui/material";
 
 function Header() {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#000000" }}>
+    <AppBar
+      position="static"
+      sx={{ background: "linear-gradient(90deg, #654321, #ff8c00)" }}
+    >
       <Toolbar>
         <Typography
-          variant="h6"
           sx={{
             flexGrow: 1,
+            fontFamily: "Roboto, serif",
+            fontSize: "30px",
             fontWeight: "bold",
             textAlign: "center",
             color: "#ffffff",
           }}
         >
-          Chess
+          Gomoku AI
         </Typography>
       </Toolbar>
     </AppBar>

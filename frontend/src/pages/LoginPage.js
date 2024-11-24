@@ -5,7 +5,7 @@ function LoginPage({ handleLogin }) {
   return (
     <Box
       sx={{
-        height: "100vh",
+        height: "90vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -27,7 +27,7 @@ function LoginPage({ handleLogin }) {
           variant="h4"
           sx={{ fontWeight: "bold", marginBottom: "16px" }}
         >
-          Welcome to Five-in-a-Row
+          Welcome to Gomoku Game!
         </Typography>
         <Typography
           variant="body1"
@@ -75,14 +75,14 @@ function LoginPage({ handleLogin }) {
           <Button
             variant="contained"
             sx={{
-              background: "linear-gradient(45deg, #000000, #424242)",
+              background: "linear-gradient(45deg, #ff8c00, #424242)",
               color: "#ffffff",
               padding: "12px 24px",
               borderRadius: "24px",
               fontSize: "16px",
               fontWeight: "bold",
               "&:hover": {
-                background: "linear-gradient(45deg, #424242, #000000)",
+                background: "linear-gradient(45deg, #424242, #ff8c00)",
               },
             }}
             onClick={handleLogin}

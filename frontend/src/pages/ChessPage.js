@@ -1,41 +1,140 @@
-import React from "react";
-import { Box, Container } from "@mui/material";
-import ChessBoard from "../components/ChessBoard";
-import BottomMenu from "../components/BottomMenu";
-function ChessPage({ handleLogout }) {
+import React, { useState } from "react";
+import { Box, Button, Typography, Menu, MenuItem } from "@mui/material";
+import ChessBoard from "../components/ChessBoard"; // Replace with your actual ChessBoard component
+
+function ChessPage(props) {
+  const { handleBack, humanState, aiState } = props;
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedModel, setSelectedModel] = useState("");
+
+  // Handlers for the AI Model dropup menu
+  const handleOpenMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSelectModel = (model) => {
+    setSelectedModel(model);
+    setAnchorEl(null);
+  };
+
   return (
-    <Box
-      sx={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "16px",
-        backgroundColor: "#f4f4f4", // 背景色
-      }}
-    >
-      {/* Chess Board */}
-      <Container
-        maxWidth="md"
+    <Box sx={{ height: "100vh", display: "flex", flexDirection: "column" }}>
+      {/* Chess Board Area */}
+      <Box
         sx={{
-          flexGrow: 1,
+          flex: 1,
           display: "flex",
-          alignItems: "center",
+          flexDirection: "column",
           justifyContent: "center",
-          backgroundColor: "#ffffff",
-          borderRadius: "8px",
-          boxShadow: "0px 4px 10px rgba(0,0,0,0.1)",
-          margin: "32px 0",
-          padding: "32px",
-          boxSizing: "border-box",
+          alignItems: "center",
+          padding: "16px",
         }}
       >
-        <ChessBoard />
-      </Container>
+        <ChessBoard /> {/* Replace with your custom ChessBoard component */}
+      </Box>
 
-      {/* Bottom Buttons */}
-      <BottomMenu handleLogout={handleLogout} />
+      {/* Player/AI Model Selection */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: "16px",
+          padding: "16px",
+        }}
+      >
+        {/* Left side player information logic handled here */}
+        {humanState && (
+          <Typography variant="body1" color="black">
+            PlayerUserName.
+          </Typography>
+        )}
+
+        {aiState && (
+          <>
+            <Button
+              variant="outlined"
+              onClick={handleOpenMenu}
+              sx={{ flex: 1, maxWidth: "300px" }}
+            >
+              AI Model {selectedModel && `(${selectedModel})`}
+            </Button>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleCloseMenu}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "center",
+              }}
+              transformOrigin={{
+                vertical: "bottom",
+                horizontal: "center",
+              }}
+            >
+              <MenuItem onClick={() => handleSelectModel("Model 1")}>
+                Model 1
+              </MenuItem>
+              <MenuItem onClick={() => handleSelectModel("Model 2")}>
+                Model 2
+              </MenuItem>
+              <MenuItem onClick={() => handleSelectModel("Model 3")}>
+                Model 3
+              </MenuItem>
+            </Menu>
+          </>
+        )}
+
+        <Button
+          variant="outlined"
+          onClick={handleOpenMenu}
+          sx={{ flex: 1, maxWidth: "300px" }}
+        >
+          AI Model {selectedModel && `(${selectedModel})`}
+        </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleCloseMenu}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "center",
+          }}
+          transformOrigin={{
+            vertical: "bottom",
+            horizontal: "center",
+          }}
+        >
+          <MenuItem onClick={() => handleSelectModel("Model 1")}>
+            Model 1
+          </MenuItem>
+          <MenuItem onClick={() => handleSelectModel("Model 2")}>
+            Model 2
+          </MenuItem>
+          <MenuItem onClick={() => handleSelectModel("Model 3")}>
+            Model 3
+          </MenuItem>
+        </Menu>
+      </Box>
+
+      {/* Buttons: Start, Change Color, Back */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          padding: "16px",
+        }}
+      >
+        <Button variant="outlined">Start</Button>
+        <Button variant="outlined">Change Color</Button>
+        <Button variant="outlined" onClick={handleBack}>
+          Back
+        </Button>
+      </Box>
     </Box>
   );
 }
