@@ -14,6 +14,8 @@ function ChessBoard({ ingame }) {
   const handleCellClick = (row, col) => {
     // Ignore clicks on already filled squares
     if (ingame) {
+      //To do: use a boolean to judge whether it's human's turn
+      //If so, let the user to click, Otherwise call the ai to make a move, and change turn
       if (board[row][col] !== null) return;
 
       // Update the board with the current player's stone

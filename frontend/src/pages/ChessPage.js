@@ -1,33 +1,19 @@
 import React, { useState } from "react";
-import { Box, Button, Typography, Menu, MenuItem } from "@mui/material";
+import { Box } from "@mui/material";
 import ChessBoard from "../components/ChessBoard"; // Replace with your actual ChessBoard component
 import ButtonMenu from "../components/ButtonMenu";
+import PlayerInformation from "../components/PlayerInformation";
 
 function ChessPage(props) {
   const { handleBack, humanState, aiState } = props;
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [selectedModel, setSelectedModel] = useState("");
   const [ingame, setIngame] = useState(false);
   const [playerIsBlack, SetplayerIsBlack] = useState(true);
 
   // Handlers for the AI Model dropup menu
-  const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
 
-  const handleCloseMenu = () => {
-    setAnchorEl(null);
-  };
-
-  const handleSelectModel = (model) => {
-    setSelectedModel(model);
-    setAnchorEl(null);
-  };
-
-  const handleIngame = (model) => {
-    if (selectedModel != "") {
-      setIngame(true);
-    }
+  const handleIngame = () => {
+    //to do
+    setIngame(true);
   };
 
   const handleChangeColor = (model) => {
@@ -53,111 +39,10 @@ function ChessPage(props) {
       {/* end of Chess Board Area */}
 
       {/* Player/AI Model Selection ---------------------------------------------------------------------------*/}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "16px",
-          padding: "16px",
-        }}
-      >
-        {/* Left side player information logic handled here */}
-        {humanState && (
-          <Button
-            variant="outlined"
-            sx={{
-              fontWeight: "bold",
-              flex: 1,
-              maxWidth: "300px",
-              backgroundColor: playerIsBlack ? "black" : "white",
-              color: playerIsBlack ? "white" : "black",
-            }}
-          >
-            PlayerUserName.
-          </Button>
-        )}
-
-        {/* ---------------------------------------------------------------------------*/}
-
-        {aiState && (
-          <>
-            <Button
-              variant="outlined"
-              onClick={handleOpenMenu}
-              sx={{
-                fontWeight: "bold",
-                flex: 1,
-                maxWidth: "300px",
-                backgroundColor: playerIsBlack ? "black" : "white",
-                color: playerIsBlack ? "white" : "black",
-              }}
-            >
-              AI Model {selectedModel && `(${selectedModel})`}
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleCloseMenu}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "center",
-              }}
-              transformOrigin={{
-                vertical: "bottom",
-                horizontal: "center",
-              }}
-            >
-              <MenuItem onClick={() => handleSelectModel("Model 1")}>
-                Model 1
-              </MenuItem>
-              <MenuItem onClick={() => handleSelectModel("Model 2")}>
-                Model 2
-              </MenuItem>
-              <MenuItem onClick={() => handleSelectModel("Model 3")}>
-                Model 3
-              </MenuItem>
-            </Menu>
-          </>
-        )}
-
-        <Button
-          variant="outlined"
-          onClick={handleOpenMenu}
-          sx={{
-            fontWeight: "bold",
-            flex: 1,
-            maxWidth: "300px",
-            backgroundColor: playerIsBlack ? "white" : "black",
-            color: playerIsBlack ? "black" : "white",
-          }}
-        >
-          AI Model {selectedModel && `(${selectedModel})`}
-        </Button>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleCloseMenu}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "center",
-          }}
-          transformOrigin={{
-            vertical: "bottom",
-            horizontal: "center",
-          }}
-        >
-          <MenuItem onClick={() => handleSelectModel("Model 1")}>
-            Model 1
-          </MenuItem>
-          <MenuItem onClick={() => handleSelectModel("Model 2")}>
-            Model 2
-          </MenuItem>
-          <MenuItem onClick={() => handleSelectModel("Model 3")}>
-            Model 3
-          </MenuItem>
-        </Menu>
-      </Box>
+      <PlayerInformation
+        gameMode={{ humanState, aiState }}
+        playerIsBlack={playerIsBlack}
+      />
       {/* end of Player/AI Model Selection ---------------------------------------------------------------------------*/}
 
       {/* in the future, this need to be replace depends on ingame or not*/}
