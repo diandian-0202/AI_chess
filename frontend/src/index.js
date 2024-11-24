@@ -7,17 +7,17 @@ import App from "./App";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#1976d2", // 蓝色
+      main: "#1976d2", // Blue
     },
     secondary: {
-      main: "#ff4081", // 粉色
+      main: "#ff4081", // Pink
     },
   },
 });
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>
-    <CssBaseline /> {/* 推荐：用于全局样式的标准化 */}
+    <CssBaseline /> {/* for global CSS standardization */}
     <App />
   </ThemeProvider>,
   document.getElementById("root")
