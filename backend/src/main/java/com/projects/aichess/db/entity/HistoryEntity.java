@@ -11,7 +11,7 @@ import java.time.Instant;
 import java.util.Objects;
 
 @Entity
-public class GameRecordEntity {
+public class HistoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,15 +21,17 @@ public class GameRecordEntity {
     private UserEntity user;
     private String gameMode; // "human_vs_AI" or "AI_vs_AI"
     private String winner; // "human" or "AI" (need to specify AI's name)
+    private String loser; // "human" or "AI" (need to specify AI's name)
 
     private Instant createdAt;
 
-    public GameRecordEntity() {}
+    public HistoryEntity() {}
 
-    public GameRecordEntity(UserEntity user, String gameMode, String winner) {
+    public HistoryEntity(UserEntity user, String gameMode, String winner, String loser) {
         this.user = user;
         this.gameMode = gameMode;
         this.winner = winner;
+        this.loser = loser;
     }
 
     // Automatically set createdAt before persisting
@@ -69,6 +71,14 @@ public class GameRecordEntity {
         this.winner = winner;
     }
 
+    public String getLoser() {
+        return loser;
+    }
+
+    public void setLoser(String winner) {
+        this.loser = loser;
+    }
+
     public Instant getCreatedAt() {
         return createdAt;
     }
@@ -78,26 +88,28 @@ public class GameRecordEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GameRecordEntity that = (GameRecordEntity) o;
+        HistoryEntity that = (HistoryEntity) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(user, that.user) &&
                 Objects.equals(gameMode, that.gameMode) &&
                 Objects.equals(winner, that.winner) &&
+                Objects.equals(loser, that.loser) &&
                 Objects.equals(createdAt, that.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, gameMode, winner, createdAt);
+        return Objects.hash(id, user, gameMode, winner, loser, createdAt);
     }
 
     @Override
     public String toString() {
-        return "GameRecordEntity{" +
+        return "HistoryEntity{" +
                 "id=" + id +
                 ", user=" + user +
                 ", gameMode='" + gameMode + '\'' +
                 ", winner='" + winner + '\'' +
+                ", loser='" + loser + '\'' +
                 ", createdAt=" + createdAt +
                 '}';
     }
