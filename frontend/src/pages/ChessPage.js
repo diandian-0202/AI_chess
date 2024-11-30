@@ -10,7 +10,6 @@ function ChessPage(props) {
   const [playerIsBlack, SetplayerIsBlack] = useState(true);
 
   // Handlers for the AI Model dropup menu
-
   const handleIngame = () => {
     //to do
     setIngame(true);

@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import gomokuBg from "../assets/Gomoku_bg.jpg";
 
 function LoginPage({ handleLogin }) {
   return (
@@ -9,13 +10,13 @@ function LoginPage({ handleLogin }) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "linear-gradient(135deg, #f3f4f6, #d3d3d3)",
+        backgroundImage: `url(${gomokuBg})`,
       }}
     >
       <Container
-        maxWidth="sm"
+        maxWidth="md"
         sx={{
-          backgroundColor: "#ffffff",
+          backgroundColor: "white",
           borderRadius: "16px",
           padding: "32px",
           boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.1)",

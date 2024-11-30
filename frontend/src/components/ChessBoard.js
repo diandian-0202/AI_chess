@@ -9,6 +9,7 @@ function ChessBoard({ ingame }) {
       .fill(null)
       .map(() => Array(BOARD_SIZE).fill(null)) // Initialize empty board
   );
+  
   const [isBlackTurn, setIsBlackTurn] = useState(true); // Track current player's turn
 
   const handleCellClick = (row, col) => {
@@ -28,6 +29,7 @@ function ChessBoard({ ingame }) {
             : cell
         )
       );
+
       setBoard(updatedBoard);
 
       // Toggle player's turn
@@ -41,8 +43,8 @@ function ChessBoard({ ingame }) {
         display: "grid",
         gridTemplateColumns: `repeat(${BOARD_SIZE}, 1fr)`, // Create a grid with 15 columns
         gridTemplateRows: `repeat(${BOARD_SIZE}, 1fr)`, // Create a grid with 15 rows
-        width: "500px", // Total width of the chessboard
-        height: "500px", // Total height of the chessboard (square)
+        width: "400px", // Total width of the chessboard
+        height: "300px", // Total height of the chessboard (square)
         border: "2px solid black", // Chessboard border
         backgroundColor: "#f4f4f4", // Chessboard background color
       }}

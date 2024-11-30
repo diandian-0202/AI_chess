@@ -2,16 +2,24 @@ import React from "react";
 import { Box, Button } from "@mui/material";
 
 function MainMenu(props) {
-  const { handle } = props; // Destructure `handle`
-  const { handleLogout, handleHuman, handleAi } = handle; // Extract handlers from `handle`
+  const { handle } = props; // Destructure handle
+  const { handleLogout, handleHuman, handleAi, handleHistory } = handle; // Extract handlers from handle
+  const gomokuWel = "/assets/GomokuWelcome.jpg";
 
   return (
     // Main Content
-    <Box sx={{ height: "90vh", display: "flex", overflow: "hidden" }}>
+    <Box
+      sx={{
+        height: "90vh",
+        display: "flex",
+        flexDirection: "row",
+        overflow: "hidden",
+      }}
+    >
       {/* Sidebar */}
       <Box
         sx={{
-          width: "200px",
+          width: "20%",
           backgroundColor: "white",
           display: "flex",
           flexDirection: "column",
@@ -65,11 +73,12 @@ function MainMenu(props) {
             AI vs AI
           </Button>
           <Button
+            onClick={handleHistory}
             variant="outlined"
             fullWidth
             sx={{
               borderRadius: "20px",
-              backgroundColor: "#3B2F2F", // Set background to black
+              backgroundColor: "#3B2F2F",
               color: "white", // Set text color to white
               fontWeight: "bold", // Set text weight to bold
               border: "1px solid black", // Set border color to black
@@ -107,24 +116,11 @@ function MainMenu(props) {
       {/* Main Content Area */}
       <Box
         sx={{
-          flex: 1,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "16px",
-          backgroundColor: "#eaeaea", // Optional background for contrast
+          height: "90vh", // Ensures it fills the height
+          backgroundImage: `url(${gomokuWel})`,
+          border: "1px solid black",
         }}
-      >
-        <Box
-          sx={{
-            width: "80%",
-            height: "100%", // Ensures it fills the height
-            backgroundColor: "#fff",
-            border: "1px solid #ccc",
-            borderRadius: "4px",
-          }}
-        ></Box>
-      </Box>
+      ></Box>
     </Box>
   );
 }
