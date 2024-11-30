@@ -7,15 +7,18 @@ import LoginPage from "./pages/LoginPage";
 import MainMenu from "./pages/MainMenu";
 import ChessPage from "./pages/ChessPage";
 import Header from "./components/Header";
+import HistoryPage from "./pages/HistoryPage";
 
 function App() {
   const [login, setLogin] = useState(false);
   const [human, setHuman] = useState(false);
   const [ai, setAi] = useState(false);
+  const [history, setHistory] = useState(false);
 
   const handleLogin = () => {
     setLogin(true);
   };
+
   const handleLogout = () => {
     setLogin(false);
   };
@@ -33,10 +36,19 @@ function App() {
     setAi(false);
   };
 
+  const handleHistory = () => {
+    setHistory(true);
+  };
+
+  const handleBackHistory = () => {
+    setHistory(false);
+  };
+
   const mainMenuHandles = {
     handleLogout: handleLogout,
     handleHuman: handleHuman,
     handleAi: handleAi,
+    handleHistory: handleHistory,
   };
 
   const renderContent = () => {
@@ -44,7 +56,11 @@ function App() {
       return <LoginPage handleLogin={handleLogin} />;
     } else {
       if (!human && !ai) {
-        return <MainMenu handle={mainMenuHandles} />;
+        if (history) {
+          return <HistoryPage handleBackHistory={handleBackHistory} />;
+        } else {
+          return <MainMenu handle={mainMenuHandles} />;
+        }
       } else {
         return (
           <ChessPage handleBack={handleBack} humanState={human} aiState={ai} />
@@ -52,6 +68,7 @@ function App() {
       }
     }
   };
+
   // {!login && <LoginPage handleLogin={handleLogin} />}
   // {login && <ChessPage handleLogout={handleLogout} />}
   return (
