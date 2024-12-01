@@ -15,11 +15,13 @@ function App() {
   const [ai, setAi] = useState(false);
   const [history, setHistory] = useState(false);
 
-  const handleLogin = () => {
+  const handleLoginSuccess = (token) => {
+    localStorage.setItem("userToken", token);
     setLogin(true);
   };
 
   const handleLogout = () => {
+    localStorage.removeItem("userToken");
     setLogin(false);
   };
 
@@ -53,7 +55,7 @@ function App() {
 
   const renderContent = () => {
     if (!login) {
-      return <LoginPage handleLogin={handleLogin} />;
+      return <LoginPage handleLogin={handleLoginSuccess} />;
     } else {
       if (!human && !ai) {
         if (history) {
