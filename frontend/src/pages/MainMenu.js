@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
+import gomokuWel from "../assets/GomokuWelcome.jpg";
 
 function MainMenu(props) {
   const { handle } = props; // Destructure handle
   const { handleLogout, handleHuman, handleAi, handleHistory } = handle; // Extract handlers from handle
-  const gomokuWel = "/assets/GomokuWelcome.jpg";
 
   return (
     // Main Content
@@ -117,7 +117,11 @@ function MainMenu(props) {
       <Box
         sx={{
           height: "90vh", // Ensures it fills the height
+          flex: 1, // Ensures the main area takes the remaining space
           backgroundImage: `url(${gomokuWel})`,
+          backgroundSize: "cover", // Makes the image cover the entire Box
+          backgroundPosition: "center", // Centers the image
+          backgroundRepeat: "no-repeat", // Prevents the image from repeating
           border: "1px solid black",
         }}
       ></Box>

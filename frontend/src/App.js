@@ -15,13 +15,17 @@ function App() {
   const [ai, setAi] = useState(false);
   const [history, setHistory] = useState(false);
 
-  const handleLoginSuccess = (token) => {
-    localStorage.setItem("userToken", token);
+  // const handleLoginSuccess = (token) => {
+  //   localStorage.setItem("userToken", token);
+  //   setLogin(true);
+  // };
+
+  const handleLogin = () => {
     setLogin(true);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userToken");
+    // localStorage.removeItem("userToken");
     setLogin(false);
   };
 
@@ -55,7 +59,7 @@ function App() {
 
   const renderContent = () => {
     if (!login) {
-      return <LoginPage handleLogin={handleLoginSuccess} />;
+      return <LoginPage handleLogin={handleLogin} />;
     } else {
       if (!human && !ai) {
         if (history) {
