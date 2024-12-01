@@ -1,34 +1,36 @@
 package com.projects.aichess.db.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.*;
 
 import java.time.Instant;
 import java.util.Objects;
 
 @Entity
+@Table(name = "history")
 public class HistoryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private UserEntity user;
+    @Column(name = "user_id")
+    private Long userId;
     private String gameMode; // "human_vs_AI" or "AI_vs_AI"
     private String winner; // "human" or "AI" (need to specify AI's name)
     private String loser; // "human" or "AI" (need to specify AI's name)
 
     private Instant createdAt;
 
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_history_user"), insertable = false, updatable = false)
+    private UserEntity user;
+
     public HistoryEntity() {}
 
-    public HistoryEntity(UserEntity user, String gameMode, String winner, String loser) {
-        this.user = user;
+    public HistoryEntity(Long id, Long userId, String gameMode, String winner, String loser) {
+        this.id = id;
+        this.userId = userId;
         this.gameMode = gameMode;
         this.winner = winner;
         this.loser = loser;
@@ -53,6 +55,10 @@ public class HistoryEntity {
 
     public void setUser(UserEntity user) {
         this.user = user;
+    }
+
+    public Long getUserId() {
+        return userId;
     }
 
     public String getGameMode() {
@@ -90,27 +96,29 @@ public class HistoryEntity {
         if (o == null || getClass() != o.getClass()) return false;
         HistoryEntity that = (HistoryEntity) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(user, that.user) &&
+                Objects.equals(userId, that.userId) &&
                 Objects.equals(gameMode, that.gameMode) &&
                 Objects.equals(winner, that.winner) &&
                 Objects.equals(loser, that.loser) &&
-                Objects.equals(createdAt, that.createdAt);
+                Objects.equals(createdAt, that.createdAt) &&
+                Objects.equals(user, that.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, gameMode, winner, loser, createdAt);
+        return Objects.hash(id, user, gameMode, winner, loser, createdAt, user);
     }
 
     @Override
     public String toString() {
         return "HistoryEntity{" +
                 "id=" + id +
-                ", user=" + user +
+                ", userId=" + userId +
                 ", gameMode='" + gameMode + '\'' +
                 ", winner='" + winner + '\'' +
                 ", loser='" + loser + '\'' +
                 ", createdAt=" + createdAt +
+                ", user=" + user +
                 '}';
     }
 }
