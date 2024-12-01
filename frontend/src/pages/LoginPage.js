@@ -2,43 +2,43 @@ import React from "react";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import gomokuBg from "../assets/Gomoku_bg.jpg";
 
-function LoginPage({ handleLoginSuccess }) {
+function LoginPage({ handleLogin }) {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const handleLogin = async () => {
-    if (!username.trim() || !password.trim()) {
-      alert("Username and Password cannot be empty!");
-      return; // Exit the function if validation fails
-    }
+  // const handleLogin = async () => {
+  //   if (!username.trim() || !password.trim()) {
+  //     alert("Username and Password cannot be empty!");
+  //     return; // Exit the function if validation fails
+  //   }
 
-    try {
-      const credentials = { username, password }; // Package credentials
-      const resp = await login(credentials); // Call login API
-      console.log("Login successful:", resp);
-      handleLoginSuccess(resp.token); // Pass user info to parent component
-    } catch (error) {
-      console.error("Error during login:", error.message);
-      alert("Failed to login. Please try again.");
-    }
-  };
+  //   try {
+  //     const credentials = { username, password }; // Package credentials
+  //     const resp = await login(credentials); // Call login API
+  //     console.log("Login successful:", resp);
+  //     handleLoginSuccess(resp.token); // Pass user info to parent component
+  //   } catch (error) {
+  //     console.error("Error during login:", error.message);
+  //     alert("Failed to login. Please try again.");
+  //   }
+  // };
 
-  const handleRegister = async () => {
-    if (!username.trim() || !password.trim()) {
-      alert("Username and Password cannot be empty!");
-      return; // Exit the function if validation fails
-    }
+  // const handleRegister = async () => {
+  //   if (!username.trim() || !password.trim()) {
+  //     alert("Username and Password cannot be empty!");
+  //     return; // Exit the function if validation fails
+  //   }
 
-    try {
-      const credentials = { username, password }; // Package credentials
-      const response = await register(credentials); // Call register API
-      console.log("Registration successful:", response);
-      alert("Registration successful! You can now log in.");
-    } catch (error) {
-      console.error("Error during registration:", error.message);
-      alert("Failed to register. Please try again.");
-    }
-  };
+  //   try {
+  //     const credentials = { username, password }; // Package credentials
+  //     const response = await register(credentials); // Call register API
+  //     console.log("Registration successful:", response);
+  //     alert("Registration successful! You can now log in.");
+  //   } catch (error) {
+  //     console.error("Error during registration:", error.message);
+  //     alert("Failed to register. Please try again.");
+  //   }
+  // };
 
   return (
     <Box
@@ -145,7 +145,7 @@ function LoginPage({ handleLoginSuccess }) {
                 backgroundColor: "#f0f0f0",
               },
             }}
-            onClick={handleRegister}
+            //onClick={handleRegister}
           >
             Register
           </Button>
