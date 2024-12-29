@@ -1,24 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import theme from "./theme/index";
+
+import LoginPage from "./pages/LoginPage";
+import MainMenu from "./pages/MainMenu";
+import ChessPage from "./pages/ChessPage";
+import Header from "./components/Header";
 
 function App() {
+  const [login, setLogin] = useState(false);
+  const [human, setHuman] = useState(false);
+  const [ai, setAi] = useState(false);
+
+  const handleLogin = () => {
+    setLogin(true);
+  };
+  const handleLogout = () => {
+    setLogin(false);
+  };
+
+  const handleHuman = () => {
+    setHuman(true);
+  };
+
+  const handleAi = () => {
+    setAi(true);
+  };
+
+  const handleBack = () => {
+    setHuman(false);
+    setAi(false);
+  };
+
+  const mainMenuHandles = {
+    handleLogout: handleLogout,
+    handleHuman: handleHuman,
+    handleAi: handleAi,
+  };
+
+  const renderContent = () => {
+    if (!login) {
+      return <LoginPage handleLogin={handleLogin} />;
+    } else {
+      if (!human && !ai) {
+        return <MainMenu handle={mainMenuHandles} />;
+      } else {
+        return (
+          <ChessPage handleBack={handleBack} humanState={human} aiState={ai} />
+        );
+      }
+    }
+  };
+  // {!login && <LoginPage handleLogin={handleLogin} />}
+  // {login && <ChessPage handleLogout={handleLogout} />}
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Header />
+      {renderContent()}
+    </ThemeProvider>
   );
 }
 
